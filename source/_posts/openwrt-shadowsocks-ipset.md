@@ -21,7 +21,7 @@ categories:
 - 我使用了第2种方案，利用pdnsd得到一个通过tcp向上游dns服务器查询的本地dns服务器，然后利用dnsmasq指定有需要的域名通过pdnsd解析，可以保证获取到正确的ip。
 
 ##Shadowsocks
-- shadowsocks官网已经上不去了，我把目前最新的1.4.6的ipk打包在一起，[在这里下载](/files/shdowsocks_1.4.6.zip)。
+- shadowsocks官网已经上不去了，可以点[这里](http://sourceforge.net/projects/openwrt-dist/files/shadowsocks-libev/)下载编译好的ipk包。1.4.7版本加入了rc4-md5的加密方式，速度比aes-256快很多，加密方式最好用rc4-md5
 - 开始之前，需要一台shadowsocks的服务器，修改配置`server_ip:"::"`监听ipv6和ipv4
 - 解压后根据自己路由器的cpu型号选择合适的包通过scp上传到/tmp。以wndr3800为例，ar71xx平台，通过下面的命令安装（先安装libpolarssl解决依赖）
 ```bash
@@ -29,9 +29,9 @@ opkg update
 opkg install libpolarssl
 opkg install /tmp/shadowsocks-libev-polarssl_1.4.6_ar71xx.ipk
 ```
-安装之后还需要做一个libpolarssl.so.5的链接，否则shadowsocks不能启动
+安装之后还需要做一个libpolarssl.so.7的链接，否则shadowsocks不能启动
 ```bash
-ln -s /usr/lib/libpolarssl.so  /usr/lib/libpolarssl.so.5
+ln -s /usr/lib/libpolarssl.so  /usr/lib/libpolarssl.so.7
 ```
 - shadowsocks安装后有三个命令，`ss-local`启动sock5代理，`ss-redir`启动透明代理,`ss-tunnel`启动隧道。我使用了`ss-local`和`ss-redir`
 - 分别建立`ss-local`和`ss-redir`的配置文件
@@ -43,7 +43,7 @@ ln -s /usr/lib/libpolarssl.so  /usr/lib/libpolarssl.so.5
     "local_port":1080, #本地sock5代理端口
     "password":"1111",
     "timeout":300,
-    "method":"aes-256-cfb"
+    "method":"rc4-md5"
 }
 ```
 `ss-redir`的配置除`local_port`以外，其他都和上面的配置相同，例子中使用3333端口。
