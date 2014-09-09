@@ -1,4 +1,4 @@
-title: 在openwrt上配置isatap方式的ivp6
+title: 在openwrt上配置isatap方式的ipv6
 date: 2014-09-08 11:58:41
 tags: [openwrt]
 categories:

@@ -105,6 +105,7 @@ server {
 设置开机启动
 ```bash
 /etc/init.d/pdnsd enable
+/etc/init.d/pdnsd restart
 ```
 完成!
 
