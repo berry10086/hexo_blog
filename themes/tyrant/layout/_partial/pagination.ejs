@@ -1,0 +1,9 @@
+<nav id="pagination" >
+    <% if (page.prev) { %>
+    <a href="<%- config.root %><%- page.prev.path %>" class="alignleft prev" ><%= __('prev') %></a>
+    <% } %>
+    <% if (page.next) { %>
+    <a href="<%- config.root %><%- page.next.path %>" class="alignright next" ><%= __('next') %></a>
+    <% } %>
+    <div class="clearfix"></div>
+</nav>
